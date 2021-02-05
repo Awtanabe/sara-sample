@@ -22,9 +22,17 @@ class MenusController < ApplicationController
 
   # POST /menus or /menus.json
   def create
-    @menu = Menu.new(menu_params)
-
-
+    # ポイント、shop_idとshop_attributesが両方ある場合は、shop_attributesが優先されるので、shop_attributesの入がない場合は削除します
+    # 下記のようなparamsがformから飛んでくるので、shop_attributesのnameの値のありなしでｐaramsを修正します
+    # {"comment"=>"", "shop_id"=>"1", "shop_attributes"=><ActionController::Parameters {"name"=>""} permitted: false>} permitted: false>
+    if !params[:menu][:shop_attributes][:name]
+      @menu = Menu.new(menu_params)
+    else
+      params[:menu].delete("shop_attributes")
+      # 下記の様になります
+      # {"comment"=>"", "shop_id"=>"1" permitted: false>} permitted: false>
+      @menu = Menu.new(menu_params)
+    end
     respond_to do |format|
       if @menu.save
         format.html { redirect_to @menu, notice: "Menu was successfully created." }
@@ -66,6 +74,6 @@ class MenusController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def menu_params
-      params.require(:menu).permit(:comment, shop_attributes:[:name])
+      params.require(:menu).permit(:comment, :shop_id,shop_attributes:[:name])
     end
 end

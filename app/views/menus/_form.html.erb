@@ -16,10 +16,18 @@
     <%= form.text_area :comment %>
   </div>
 
-
   <div class="field">
+    <button id="new-shop">店舗入力</button>
+  </div>
+
+  <div class="field" id="shop-list">
+    <%= form.label :shop %>
+    <%= form.collection_select(:shop_id, Shop.all, :id, :name)%> 
+  </div>
+
+  <div class="field" id="shop-field" style="display: none;">
     <%= form.fields_for :shop do |shop|%>
-    <%= shop.label :name %>
+    <%= shop.label :店舗入力 %>
     <%= shop.text_field :name %>
     <%end%>
   </div>
