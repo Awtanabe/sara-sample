@@ -16,9 +16,12 @@
     <%= form.text_area :comment %>
   </div>
 
+
   <div class="field">
-    <%= form.label :shop_id %>
-    <%= form.text_field :shop_id %>
+    <%= form.fields_for :shop do |shop|%>
+    <%= shop.label :name %>
+    <%= shop.text_field :name %>
+    <%end%>
   </div>
 
   <div class="actions">

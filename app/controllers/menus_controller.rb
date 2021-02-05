@@ -13,6 +13,7 @@ class MenusController < ApplicationController
   # GET /menus/new
   def new
     @menu = Menu.new
+    @menu.build_shop
   end
 
   # GET /menus/1/edit
@@ -22,6 +23,7 @@ class MenusController < ApplicationController
   # POST /menus or /menus.json
   def create
     @menu = Menu.new(menu_params)
+
 
     respond_to do |format|
       if @menu.save
@@ -64,6 +66,6 @@ class MenusController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def menu_params
-      params.require(:menu).permit(:comment, :shop_id)
+      params.require(:menu).permit(:comment, shop_attributes:[:name])
     end
 end
