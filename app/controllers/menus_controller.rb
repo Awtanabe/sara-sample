@@ -25,7 +25,7 @@ class MenusController < ApplicationController
     # ポイント、shop_idとshop_attributesが両方ある場合は、shop_attributesが優先されるので、shop_attributesの入がない場合は削除します
     # 下記のようなparamsがformから飛んでくるので、shop_attributesのnameの値のありなしでｐaramsを修正します
     # {"comment"=>"", "shop_id"=>"1", "shop_attributes"=><ActionController::Parameters {"name"=>""} permitted: false>} permitted: false>
-    if !params[:menu][:shop_attributes][:name]
+    if params[:menu][:shop_attributes][:name].present?
       @menu = Menu.new(menu_params)
     else
       params[:menu].delete("shop_attributes")
