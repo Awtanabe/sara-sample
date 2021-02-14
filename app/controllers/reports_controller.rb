@@ -23,7 +23,10 @@ class ReportsController < ApplicationController
 
   # POST /reports or /reports.json
   def create
-    binding.pry
+    
+    if !params[:report][:menu_attributes][:shop_attributes][:name].present?
+      params[:report][:menu_attributes].delete("shop_attributes")     
+    end
     @report = Report.new(report_params)
 
     respond_to do |format|
@@ -67,6 +70,6 @@ class ReportsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def report_params
-      params.require(:report).permit(:comment, menu_attributes: [:id, :comment, shop_attributes: [:id, :name]])
+      params.require(:report).permit(:comment, menu_attributes: [:id, :comment, :shop_id, shop_attributes: [:id, :name]])
     end
 end

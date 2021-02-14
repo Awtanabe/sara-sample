@@ -20,6 +20,10 @@
     <%= form.fields_for :menu do |menu| %>
       <%= menu.label :menu_comment%>
       <%= menu.text_field :comment%>
+
+      <%= menu.label :shopname %> 
+      <%= menu.collection_select(:shop_id, Shop.all, :id, :name) %> 
+
       <%= menu.fields_for :shop do |shop| %>
         <%= shop.label :shop_name%>
         <%= shop.text_field :name%>
