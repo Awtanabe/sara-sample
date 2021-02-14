@@ -20,8 +20,7 @@
     <%= form.fields_for :menu do |menu| %>
       <%= menu.label :menu_comment%>
       <%= menu.text_field :comment%>
-
-      <%= menu.fields_for :shop do |shop|%> 
+      <%= menu.fields_for :shop do |shop| %>
         <%= shop.label :shop_name%>
         <%= shop.text_field :name%>
       <%end%>
